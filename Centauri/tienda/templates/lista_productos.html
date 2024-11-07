@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h1>Productos Disponibles</h1>
+
+    <!-- Barra de Búsqueda y Filtros -->
+    <form method="get" action="{% url 'lista_productos' %}">
+        <input type="text" name="q" placeholder="Buscar productos..." value="{{ request.GET.q }}">
+
+        <label for="min_precio">Precio mínimo:</label>
+        <input type="number" name="min_precio" id="min_precio" value="{{ request.GET.min_precio }}">
+
+        <label for="max_precio">Precio máximo:</label>
+        <input type="number" name="max_precio" id="max_precio" value="{{ request.GET.max_precio }}">
+
+        <label for="estado">Estado:</label>
+        <select name="estado" id="estado">
+            <option value="">Todos</option>
+            <option value="nuevo" {% if request.GET.estado == 'nuevo' %}selected{% endif %}>Nuevo</option>
+            <option value="usado" {% if request.GET.estado == 'usado' %}selected{% endif %}>Usado</option>
+        </select>
+
+        <button type="submit">Aplicar filtros</button>
+    </form>
+
+    <!-- Lista de Productos -->
+    <ul>
+        {% if productos %}
+            {% for producto in productos %}
+                <li>
+                    <h2>{{ producto.nombre }}</h2>
+                    <p>{{ producto.descripcion }}</p>
+                    <p>Precio: ${{ producto.precio }}</p>
+                    <p>Estado: {{ producto.estado }}</p>
+                    <a href="{% url 'detalle_producto' producto.id %}">Ver Detalle</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron productos.</p>
+        {% endif %}
+    </ul>
+
+    <a href="{% url 'panel_usuario' %}">Ir al Panel de Usuario</a>
+</body>
+</html>
+

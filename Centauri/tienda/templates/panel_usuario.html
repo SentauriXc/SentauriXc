@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Usuario</title>
+</head>
+<body>
+    <h1>Panel de Usuario</h1>
+
+    <h2>Mis Productos</h2>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                {{ producto.nombre }} - ${{ producto.precio }}
+                <a href="{% url 'editar_producto' producto.id %}">Editar</a>
+                <a href="{% url 'eliminar_producto' producto.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <p>No tienes productos publicados.</p>
+        {% endfor %}
+    </ul>
+
+    <h2>Mis Compras</h2>
+    <ul>
+        {% for transaccion in transacciones %}
+            <li>
+                {{ transaccion.producto.nombre }} - {{ transaccion.fecha }} - {{ transaccion.estado }}
+            </li>
+        {% empty %}
+            <p>No tienes transacciones.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

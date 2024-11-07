@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Transacciones</title>
+</head>
+<body>
+    <h1>Historial de Transacciones</h1>
+    <ul>
+        {% for transaccion in transacciones %}
+            <li>
+                Producto: {{ transaccion.producto.nombre }} - Precio: ${{ transaccion.producto.precio }}
+                - Estado: {{ transaccion.estado }} - Fecha: {{ transaccion.fecha }}
+            </li>
+        {% empty %}
+            <li>No has realizado ninguna compra.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'lista_productos' %}">Volver a la lista de productos</a>
+</body>
+</html>

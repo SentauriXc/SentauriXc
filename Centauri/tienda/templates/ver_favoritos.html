@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Favoritos</title>
+</head>
+<body>
+    <h1>Mis Productos Favoritos</h1>
+
+    <ul>
+        {% for favorito in favoritos %}
+            <li>
+                <h2>{{ favorito.producto.nombre }}</h2>
+                <p>{{ favorito.producto.descripcion }}</p>
+                <p>Precio: ${{ favorito.producto.precio }}</p>
+                <p>Estado: {{ favorito.producto.estado }}</p>
+                <a href="{% url 'detalle_producto' favorito.producto.id %}">Ver Detalle</a>
+            </li>
+        {% empty %}
+            <p>No tienes productos favoritos.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'lista_productos' %}">Volver a Productos</a>
+</body>
+</html>
